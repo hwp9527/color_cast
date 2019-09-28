@@ -1,9 +1,9 @@
 import sys
 import cv2
 import math
+import numpy as np
 
-def get_color_cast_factor(image):
-    img = cv2.imread(image)
+def get_color_cast_factor(img):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
     l_channel, a_channel, b_channel = cv2.split(img)
     h,w,_ = img.shape
@@ -27,7 +27,15 @@ def get_color_cast_factor(image):
     return result
 
 
-if __name__ == "__main__":
-    for a in sys.argv[1:]:
-        print(a, "=", get_color_cast_factor(a))
+def rgb_mean(img):
+    b, g, r = cv2.split(img)
+    b_mean = np.mean(b)
+    g_mean = np.mean(g)
+    r_mean = np.mean(r)
+
+    return b_mean, g_mean, r_mean
+
+# if __name__ == "__main__":
+    #for a in sys.argv[1:]:
+    #    print(a, "=", get_color_cast_factor(a))
 
