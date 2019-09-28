@@ -27,8 +27,9 @@ def get_color_cast_factor(img):
     return result
 
 
-def rgb_mean(img):
-    b, g, r = cv2.split(img)
+def rgb_mean(img_yuv):
+    img_bgr = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR_Y422)
+    b, g, r = cv2.split(img_bgr)
     b_mean = np.mean(b)
     g_mean = np.mean(g)
     r_mean = np.mean(r)
