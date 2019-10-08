@@ -9,7 +9,7 @@ if (sys.version[:1] == "3"):
 else:
     import thread
 
-isDualCam = False
+isDualCam = True
 
 def select_camera(last_index):
     number = 0
@@ -40,11 +40,11 @@ if __name__ == "__main__":
     select = select_camera(i - 1)
     print("You have select camera(%d)" % (select ))
 
-    # is dual camera?
-
+    # is dual camera? default Yes.
     print("Is it dual camera?")
-    if input("[Y/N]:") == "Y":
-        isDualCam = True
+    dual_cam = input("[Y/N]:")
+    if  dual_cam == "N" or dual_cam == "n":
+        isDualCam = False
 
 
     cap = camera.open_camera(select)
@@ -53,7 +53,7 @@ if __name__ == "__main__":
         height = cap.get(4)  # Frame Height
         print('Default width: ' + str(width) + ', height: ' + str(height))
 
-        plt.axis([0, 100, 0, 300])
+        plt.axis([0, 100, 0, 255])
         plt.ion() #开启interactive模式
         xs = [0, 0]
         ys = [1, 1]
@@ -95,7 +95,7 @@ if __name__ == "__main__":
             xs[1] = i
             ys[1] = y
             plt.plot(xs, ys, 'r-')#直接窗口绘图，但迅速自动关闭
-            plt.pause(0.000000000001)#窗口保持ns后自动关闭
+            plt.pause(0.000000000001)#窗口保持XXX秒后自动关闭
             i += 1
             if i > 95:
                 plt.axis([i - 95, i + 5, 0, 300])
